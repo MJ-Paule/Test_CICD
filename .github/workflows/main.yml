@@ -13,8 +13,11 @@ jobs:
       - name: +Checkout code from Git
         uses: actions/checkout@v7
 
-      - name: Install GCC
-        run: sudo apt-get install -y g++
+      - name: Install tools
+        run: sudo apt-get install -y g++ cppcheck
+
+      - name: stylecheck
+        run: cppcheck --enable=style,warning,performance --error-exitcode=1 main.cpp
 
       - name: Build
         run: g++ main.cpp -o programm -Wall
