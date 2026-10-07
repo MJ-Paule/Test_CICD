@@ -22,15 +22,15 @@ jobs:
 #      - name: clang-tidy
 #        run: clang-tidy main.cpp -checks='bugprone-*,performance-*,readability-*,modernize-*' -warnings-as-errors='*' -- -std=c++17
 
-  build:
+  build-lin:
     needs: lint
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
-        compiler: [g++]
-        std: [14, 17]
+        compiler: [g++, clang++]
+        std: [14, 17, 20]
 
     name: Build (${{ matrix.compiler }}, C++${{ matrix.std }})
 
@@ -53,4 +53,40 @@ jobs:
             echo "Test fehlgeschlagen: '$OUTPUT'"
             exit 1
           fi
-          
+
+  build-win:
+    needs: lint
+    runs-on: windows-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        std: [17, 20]
+
+    name: Build (MSVC, C++${{ matrix.std }})
+
+    steps:
+      - name: Checkout code from Git
+        uses: actions/checkout@v4
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Build
+        shell: cmd
+        run: |
+          cl /EHsc /W4 /WX /std:c++${{ matrix.std }} main.cpp
+
+      - name: Test
+        shell: powershell
+        run: |
+          $output= .\main.exe
+          if ($output -eq "Hello")
+          {
+              Write-Host "Test bestanden"
+          }
+          else
+          {
+              Write-Host "Test fehlgeschlagen: '$output'"
+              exit 1
+          }
