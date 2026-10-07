@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code from Git
+      - name: +Checkout code from Git
         uses: actions/checkout@v2
 
       - name: Install GCC
