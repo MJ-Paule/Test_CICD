@@ -27,7 +27,12 @@ jobs:
 
       - name: Test Konsolen Output
         run: |
-          OUTPUT=$(./programm)
+          cat <<EOF > expected.txt
+          Hello
+          Wie stehts
+          EOF
 
-          echo "$OUTPUT | grep -Fx "Hello"
-          echo "$OUTPUT | grep -Fx "Wie stehts"
+          ./program > actual.txt
+
+          diff expected.txt actual.txt
+          
