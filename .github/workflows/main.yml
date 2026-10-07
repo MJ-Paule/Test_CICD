@@ -28,7 +28,7 @@ jobs:
       - name: Test Konsolen Output
         run: |
           OUTPUT=$(./programm)
-          if [ "$OUTPUT" = "Hello \n Wie stehts" ]; then
+          if [ "$OUTPUT" = "Hello \nWie stehts" ]; then
             echo "Test bestanden bro"
           else
             echo "Da lief etwas schief: 'OUTPUT'"
