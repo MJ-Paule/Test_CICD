@@ -28,9 +28,6 @@ jobs:
       - name: Test Konsolen Output
         run: |
           OUTPUT=$(./programm)
-          if [ "$OUTPUT" = "Hello \nWie stehts" ]; then
-            echo "Test bestanden bro"
-          else
-            echo "Da lief etwas schief: 'OUTPUT'"
-            exit 1
-          fi
+
+          echo "$OUTPUT | grep -Fx "Hello"
+          echo "$OUTPUT | grep -Fx "Wie stehts"
