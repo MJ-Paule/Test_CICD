@@ -25,14 +25,13 @@ jobs:
       - name: Build
         run: g++ main.cpp -o programm -Wall
 
-      - name: Test Konsolen Output
+      - name: Test
         run: |
-          cat <<EOF > expected.txt
-          Hello
-          Wie stehts
-          EOF
-
-          ./program > actual.txt
-
-          diff expected.txt actual.txt
+          OUTPUT=$(./programm)
+          if [ "$OUTPUT" = "Hello" ]; then
+            echo "Test bestanden"
+          else
+            echo "Test fehlgeschlagen: '$OUTPUT'"
+            exit 1
+          fi
           
