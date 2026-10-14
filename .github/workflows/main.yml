@@ -20,8 +20,20 @@ jobs:
       - name: stylecheck
         run: cppcheck --enable=style,warning,performance --error-exitcode=1 main.cpp
 
-#      - name: clang-tidy
-#        run: clang-tidy main.cpp -checks='bugprone-*,performance-*,readability-*,modernize-*' -warnings-as-errors='*' -- -std=c++17
+  unittest:
+    needs: lint
+    runs-on: unbuntu-latest
+
+    steps:
+      - name: Checkout code from Git
+        uses: actions/checkout@v4
+
+      - name: Install Google Test
+        uses: sudo apt-get install -y g++ libgtest-dev
+
+      - name: Build unit tests
+        run: g++ test_calc.cpp -o unittests -std=c++17 -Wall -lgtest -lgtest_main -pthread && ./unittests
+
 
   build-lin:
     needs: lint
