@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Google Test
-        uses: sudo apt-get install -y g++ libgtest-dev
+        run: sudo apt-get install -y g++ libgtest-dev
 
       - name: Build unit tests
         run: g++ test_calc.cpp -o unittests -std=c++17 -Wall -lgtest -lgtest_main -pthread && ./unittests
