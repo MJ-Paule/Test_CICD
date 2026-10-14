@@ -1,6 +1,6 @@
 #include <string> 
 
-inline std::string greet(const sd::string& name = "")
+inline std::string greet(const std::string& name = "")
 {
     if (!name.empty()){
         return "Hello " + name;
