@@ -36,7 +36,7 @@ jobs:
 
 
   build-lin:
-    needs: lint
+    needs: unittest
     runs-on: ubuntu-latest
 
     strategy:
@@ -68,7 +68,7 @@ jobs:
           fi
 
   build-win:
-    needs: lint
+    needs: unittest
     runs-on: windows-latest
 
     strategy:
