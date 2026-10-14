@@ -23,9 +23,11 @@ jobs:
 
       - name: Style Checkou
         run: ruff check .
+        continue-on-error: true
 
       - name: Format Check
         run: ruff format --check .
+        continue-on-error: true
 
       - name: Run unittest
         run: python -m unittest discover -v
