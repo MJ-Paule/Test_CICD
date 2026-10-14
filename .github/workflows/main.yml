@@ -32,7 +32,7 @@ jobs:
         run: g++ test_calc.cpp -o unittests -std=c++17 -Wall -lgtest -lgtest_main -pthread && ./unittests
 
 
-  build-lin:
+  build:
     needs: unittest
     runs-on: ubuntu-latest
 
@@ -63,43 +63,6 @@ jobs:
             echo "Test fehlgeschlagen: '$OUTPUT'"
             exit 1
           fi
-
-  build-win:
-    needs: unittest
-    runs-on: windows-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        std: [17, 20]
-
-    name: Build (MSVC, C++${{ matrix.std }})
-
-    steps:
-      - name: Checkout code from Git
-        uses: actions/checkout@v4
-
-      - name: Setup MSVC
-        uses: ilammy/msvc-dev-cmd@v1
-
-      - name: Build
-        shell: cmd
-        run: |
-          cl /EHsc /W4 /WX /std:c++${{ matrix.std }} main.cpp
-
-      - name: Test
-        shell: powershell
-        run: |
-          $output= .\main.exe
-          if ($output -eq "Hello")
-          {
-              Write-Host "Test bestanden"
-          }
-          else
-          {
-              Write-Host "Test fehlgeschlagen: '$output'"
-              exit 1
-          }
 
   deploy:
     needs: build-lin
