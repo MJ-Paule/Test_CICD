@@ -18,3 +18,9 @@ jobs:
 
       - name: Run unittest
         run: python -m unittest discover -v
+
+      - name: stylecheck
+        uses: ruff check .
+
+      - name: formatting-check
+        uses: ruff format --check .
