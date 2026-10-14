@@ -2,9 +2,6 @@ name: CI/CD
 
 on:
   workflow_dispatch:
-  #push:
-  #  branches:
-  #    - main
 
 jobs:
   lint:
@@ -105,7 +102,7 @@ jobs:
           }
 
   deploy:
-    needs: build
+    needs: build-lin
     runs-on: ubuntu-latest
     permissions:
       contents: write
